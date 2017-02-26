@@ -1,0 +1,21 @@
+{
+  "1": {
+    "id": "1",
+    "name": "My World",
+    "player": {
+      "name": "Luis",
+      "knowledge": {
+        "locations": [1]
+      }
+    },
+    "locations": [{
+      "id": 1,
+      "name": "City 1",
+      "description": "First city of the world"
+    }, {
+      "id": 2,
+      "name": "City 2",
+      "description": "Second city of the world"
+    }]
+  }
+}

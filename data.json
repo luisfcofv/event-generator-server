@@ -1,0 +1,28 @@
+{
+  "1": {
+    "id": "1",
+    "name": "My World",
+    "player": {
+      "name": "Luis",
+      "knowledge": {
+        "space": [1]
+      }
+    },
+    "locations": [{
+      "id": "1",
+      "name": "City 1",
+      "description": "First city of the world",
+      "neighbors": [{ "id": "2", "distance": 0.8 }]
+    }, {
+      "id": "2",
+      "name": "City 2",
+      "description": "Second city of the world",
+      "neighbors": [{ "id": "1", "distance": 1.1 }, { "id": "3", "distance": 0.1 }]
+    }, {
+      "id": "3",
+      "name": "City 3",
+      "description": "Another city of the world",
+      "neighbors": [{ "id": "2", "distance": 0.1 }]
+    }]
+  }
+}

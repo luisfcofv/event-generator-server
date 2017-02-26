@@ -1,16 +1,23 @@
 package world
 
 import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+
 	"github.com/graphql-go/graphql"
 	"github.com/luisfcofv/indexter/player"
 )
 
 type world struct {
-	ID     string        `json:"id"`
-	Name   string        `json:"name"`
-	State  interface{}   `json:"state"`
-	Player player.Player `json:"player"`
+	ID        string        `json:"id"`
+	Name      string        `json:"name"`
+	State     interface{}   `json:"state"`
+	Player    player.Player `json:"player"`
+	Locations []Location    `json:"locations"`
 }
+
+var data map[string]world
 
 var worldType = graphql.NewObject(
 	graphql.ObjectConfig{
@@ -28,6 +35,9 @@ var worldType = graphql.NewObject(
 			"state": &graphql.Field{
 				Type: graphql.String,
 			},
+			"locations": &graphql.Field{
+				Type: graphql.NewList(LocationType),
+			},
 		},
 	},
 )
@@ -40,14 +50,27 @@ var WorlField = &graphql.Field{
 		},
 	},
 	Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-		idQuery := p.Args["id"].(string)
-		state := make(map[string]string)
-		state["location"] = "test"
-		state["key"] = "value"
-		// player := player.Player{"1", "luis", nil}
-		player := player.ResolvePlayer(idQuery)
-		println(idQuery)
-		myworld := world{"1", "World id: " + idQuery, state, player}
-		return myworld, nil
+		_ = importJSONDataFromFile("data.json", &data)
+		idQuery, isOK := p.Args["id"].(string)
+		if isOK {
+			return data[idQuery], nil
+		}
+		return nil, nil
 	},
+}
+
+//Helper function to import json from file to map
+func importJSONDataFromFile(fileName string, result interface{}) (isOK bool) {
+	isOK = true
+	content, err := ioutil.ReadFile(fileName)
+	if err != nil {
+		fmt.Print("Error:", err)
+		isOK = false
+	}
+	err = json.Unmarshal(content, result)
+	if err != nil {
+		isOK = false
+		fmt.Print("Error:", err)
+	}
+	return
 }

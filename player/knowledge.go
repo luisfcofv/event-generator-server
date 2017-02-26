@@ -3,7 +3,7 @@ package player
 import "github.com/graphql-go/graphql"
 
 type knowledge struct {
-	Space       string `json:"space"`
+	Space       []int  `json:"space"`
 	Causation   string `json:"causation"`
 	Time        string `json:"time"`
 	Intention   string `json:"intention"`
@@ -15,7 +15,7 @@ var knowledgeType = graphql.NewObject(
 		Name: "Knowledge",
 		Fields: graphql.Fields{
 			"space": &graphql.Field{
-				Type: graphql.String,
+				Type: graphql.NewList(graphql.Int),
 			},
 			"causation": &graphql.Field{
 				Type: graphql.String,
