@@ -6,15 +6,17 @@ import (
 	"io/ioutil"
 
 	"github.com/graphql-go/graphql"
+	"github.com/luisfcofv/indexter/models"
 	"github.com/luisfcofv/indexter/player"
 )
 
 type world struct {
-	ID        string        `json:"id"`
-	Name      string        `json:"name"`
-	State     interface{}   `json:"state"`
-	Player    player.Player `json:"player"`
-	Locations []Location    `json:"locations"`
+	ID        string            `json:"id"`
+	Name      string            `json:"name"`
+	State     interface{}       `json:"state"`
+	Player    player.Player     `json:"player"`
+	Locations []models.Location `json:"locations"`
+	Social    []models.Agent    `json:"social"`
 }
 
 var data map[string]world
@@ -36,7 +38,10 @@ var worldType = graphql.NewObject(
 				Type: graphql.String,
 			},
 			"locations": &graphql.Field{
-				Type: graphql.NewList(LocationType),
+				Type: graphql.NewList(models.LocationType),
+			},
+			"social": &graphql.Field{
+				Type: graphql.NewList(models.AgentType),
 			},
 		},
 	},
