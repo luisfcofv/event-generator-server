@@ -3,6 +3,7 @@ package world
 import (
 	"encoding/json"
 	"fmt"
+	// "github.com/aws/aws-sdk-go/service/dynamodb"
 	"io/ioutil"
 
 	"github.com/graphql-go/graphql"
@@ -10,7 +11,7 @@ import (
 	"github.com/luisfcofv/indexter/player"
 )
 
-type world struct {
+type World struct {
 	ID        string            `json:"id"`
 	Name      string            `json:"name"`
 	State     interface{}       `json:"state"`
@@ -19,7 +20,7 @@ type world struct {
 	Social    []models.Agent    `json:"social"`
 }
 
-var data map[string]world
+var data map[string]World
 
 var worldType = graphql.NewObject(
 	graphql.ObjectConfig{

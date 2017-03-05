@@ -1,8 +1,6 @@
 package salience
 
 import (
-	"fmt"
-
 	"github.com/luisfcofv/indexter/models"
 )
 
@@ -11,17 +9,24 @@ type node struct {
 	Distance int
 }
 
-func SpaceSalience(locations []models.Location, activeNodes []string, experienceNodes []string) {
+func SpaceSalience(locations []models.Location, activeNodes []string, experienceNodes []string) map[string]float32 {
 	locationsMap := make(map[string][]models.Neighbor)
 
 	for _, location := range locations {
 		locationsMap[location.ID] = location.Neighbors
 	}
 
+	resultsMap := make(map[string]float32)
 	for _, activeNodeID := range activeNodes {
 		distance := closestNode(activeNodeID, locationsMap, experienceNodes)
-		fmt.Println("Solution: ", activeNodeID, distance)
+		resultsMap[activeNodeID] = computeSalience(distance, len(locations))
 	}
+
+	return resultsMap
+}
+
+func computeSalience(distance int, totalNodes int) float32 {
+	return 1.0 - float32(distance)/float32(totalNodes)
 }
 
 func closestNode(activeNodeID string, locationsMap map[string][]models.Neighbor, experienceNodes []string) int {

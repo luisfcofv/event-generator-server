@@ -11,7 +11,7 @@ type Agent struct {
 
 var AgentType = graphql.NewObject(
 	graphql.ObjectConfig{
-		Name: "Location",
+		Name: "Agent",
 		Fields: graphql.Fields{
 			"id": &graphql.Field{
 				Type: graphql.String,

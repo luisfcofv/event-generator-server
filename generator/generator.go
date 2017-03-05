@@ -18,9 +18,14 @@ var data generator
 func Compute() {
 	_ = importJSONDataFromFile("data.json", &data)
 
+	// foreach instance templace
+	// compute total salience
+
 	activeNodes := []string{"2", "7"}
 	experienceNodes := []string{"1", "4"}
-	salience.SpaceSalience(data.Locations, activeNodes, experienceNodes)
+	spaceSalience := salience.SpaceSalience(data.Locations, activeNodes, experienceNodes)
+	// socialSalience := salience.SpaceSalience(data.Social, activeNodes, experienceNodes)
+	fmt.Println("Space salience:", spaceSalience)
 }
 
 //Helper function to import json from file to map

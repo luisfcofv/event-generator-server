@@ -5,8 +5,12 @@
     "player": {
       "name": "Luis",
       "knowledge": {
-        "space": [1]
+        "space": [1],
+        "social": [2]
       }
+    },
+    "state": {
+
     },
     "locations": [
       {
