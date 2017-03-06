@@ -1,17 +1,19 @@
 package world
 
 import (
-	"encoding/json"
 	"fmt"
-	// "github.com/aws/aws-sdk-go/service/dynamodb"
-	"io/ioutil"
+
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/service/dynamodb"
+	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 
 	"github.com/graphql-go/graphql"
+	"github.com/luisfcofv/indexter/aws"
 	"github.com/luisfcofv/indexter/models"
 	"github.com/luisfcofv/indexter/player"
 )
 
-type World struct {
+type world struct {
 	ID        string            `json:"id"`
 	Name      string            `json:"name"`
 	State     interface{}       `json:"state"`
@@ -19,8 +21,6 @@ type World struct {
 	Locations []models.Location `json:"locations"`
 	Social    []models.Agent    `json:"social"`
 }
-
-var data map[string]World
 
 var worldType = graphql.NewObject(
 	graphql.ObjectConfig{
@@ -56,27 +56,41 @@ var WorlField = &graphql.Field{
 		},
 	},
 	Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-		_ = importJSONDataFromFile("data.json", &data)
 		idQuery, isOK := p.Args["id"].(string)
 		if isOK {
-			return data[idQuery], nil
+			return getWorld(idQuery), nil
 		}
 		return nil, nil
 	},
 }
 
-//Helper function to import json from file to map
-func importJSONDataFromFile(fileName string, result interface{}) (isOK bool) {
-	isOK = true
-	content, err := ioutil.ReadFile(fileName)
-	if err != nil {
-		fmt.Print("Error:", err)
-		isOK = false
+func getWorld(ID string) world {
+	paramsItem := &dynamodb.GetItemInput{
+		TableName: aws.String(db.AppConfig.Table),
+		Key: map[string]*dynamodb.AttributeValue{
+			"ID": {
+				N: aws.String(ID),
+			},
+		},
 	}
-	err = json.Unmarshal(content, result)
+
+	worldInstance := world{}
+
+	// Make the DynamoDB Query API call
+	result, err := db.DynamodbClient.GetItem(paramsItem)
 	if err != nil {
-		isOK = false
-		fmt.Print("Error:", err)
+		fmt.Errorf("failed to make GetItem API call", err)
+		return worldInstance
 	}
-	return
+
+	// Unmarshal the Items field in the result value to the Item Go type.
+	errUnmarshal := dynamodbattribute.UnmarshalMap(result.Item, &worldInstance)
+	if errUnmarshal != nil {
+		fmt.Errorf("failed to unmarshal map", errUnmarshal)
+		return worldInstance
+	}
+
+	fmt.Println(worldInstance)
+
+	return worldInstance
 }
