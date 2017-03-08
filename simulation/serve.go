@@ -46,6 +46,7 @@ func executeQuery(query string, schema graphql.Schema) *graphql.Result {
 
 func Serve() {
 	db.Setup()
+	world.CreateWorld()
 
 	http.HandleFunc("/graphql", func(w http.ResponseWriter, r *http.Request) {
 		result := executeQuery(r.URL.Query()["query"][0], schema)

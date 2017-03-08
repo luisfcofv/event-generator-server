@@ -14,7 +14,6 @@ import (
 )
 
 type world struct {
-	ID        string            `json:"id"`
 	Name      string            `json:"name"`
 	State     interface{}       `json:"state"`
 	Player    player.Player     `json:"player"`
@@ -26,9 +25,6 @@ var worldType = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "World",
 		Fields: graphql.Fields{
-			"id": &graphql.Field{
-				Type: graphql.String,
-			},
 			"name": &graphql.Field{
 				Type: graphql.String,
 			},
@@ -51,25 +47,25 @@ var worldType = graphql.NewObject(
 var WorlField = &graphql.Field{
 	Type: worldType,
 	Args: graphql.FieldConfigArgument{
-		"id": &graphql.ArgumentConfig{
+		"name": &graphql.ArgumentConfig{
 			Type: graphql.String,
 		},
 	},
 	Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-		idQuery, isOK := p.Args["id"].(string)
+		name, isOK := p.Args["name"].(string)
 		if isOK {
-			return getWorld(idQuery), nil
+			return getWorld(name), nil
 		}
 		return nil, nil
 	},
 }
 
-func getWorld(ID string) world {
+func getWorld(name string) world {
 	paramsItem := &dynamodb.GetItemInput{
 		TableName: aws.String(db.AppConfig.Table),
 		Key: map[string]*dynamodb.AttributeValue{
-			"ID": {
-				N: aws.String(ID),
+			"name": {
+				S: aws.String(name),
 			},
 		},
 	}

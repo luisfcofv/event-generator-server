@@ -29,6 +29,7 @@ func Setup() {
 
 	awscfg := &aws.Config{}
 	awscfg.WithRegion(AppConfig.Region)
+	// awscfg.WithEndpoint("http://127.0.0.1:8000")
 
 	// Create the session that the DynamoDB service will use.
 	session := session.Must(session.NewSession(awscfg))
