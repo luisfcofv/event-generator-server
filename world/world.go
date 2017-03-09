@@ -86,7 +86,5 @@ func getWorld(name string) world {
 		return worldInstance
 	}
 
-	fmt.Println(worldInstance)
-
 	return worldInstance
 }

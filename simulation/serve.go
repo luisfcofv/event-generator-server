@@ -1,13 +1,14 @@
 package simulation
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"github.com/graphql-go/graphql"
 	"github.com/luisfcofv/indexter/aws"
 	"github.com/luisfcofv/indexter/world"
+	"github.com/rs/cors"
+	"github.com/sogko/graphql-go-handler"
 )
 
 /*
@@ -48,11 +49,14 @@ func Serve() {
 	db.Setup()
 	world.CreateWorld()
 
-	http.HandleFunc("/graphql", func(w http.ResponseWriter, r *http.Request) {
-		result := executeQuery(r.URL.Query()["query"][0], schema)
-		json.NewEncoder(w).Encode(result)
+	mux := http.NewServeMux()
+	graphqlHandler := handler.New(&handler.Config{
+		Schema: &schema,
+		Pretty: true,
 	})
+	mux.Handle("/graphql", graphqlHandler)
 
+	corsHandler := cors.Default().Handler(mux)
 	fmt.Println("Indexter is running on port 8080")
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8080", corsHandler)
 }

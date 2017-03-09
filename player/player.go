@@ -20,8 +20,3 @@ var PlayerType = graphql.NewObject(
 		},
 	},
 )
-
-func ResolvePlayer(id string) Player {
-	player := Player{"luis", knowledge{[]int{1}, "0", "0", "0", "0"}}
-	return player
-}
