@@ -5,10 +5,12 @@ import (
 	"net/http"
 
 	"github.com/graphql-go/graphql"
-	"github.com/luisfcofv/indexter/aws"
-	"github.com/luisfcofv/indexter/world"
 	"github.com/rs/cors"
 	"github.com/sogko/graphql-go-handler"
+
+	"github.com/luisfcofv/indexter/aws"
+	"github.com/luisfcofv/indexter/models"
+	"github.com/luisfcofv/indexter/templates"
 )
 
 /*
@@ -24,7 +26,8 @@ var queryType = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "Query",
 		Fields: graphql.Fields{
-			"world": world.WorlField,
+			"world":          models.WorldField,
+			"eventTemplates": templates.EventTemplatesField,
 		},
 	})
 
@@ -47,7 +50,7 @@ func executeQuery(query string, schema graphql.Schema) *graphql.Result {
 
 func Serve() {
 	db.Setup()
-	world.CreateWorld()
+	CreateWorld()
 
 	mux := http.NewServeMux()
 	graphqlHandler := handler.New(&handler.Config{

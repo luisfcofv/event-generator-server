@@ -23,6 +23,7 @@ func Compute() {
 
 	activeNodes := []string{"2", "7"}
 	experienceNodes := []string{"1", "4"}
+
 	spaceSalience := salience.SpaceSalience(data.Locations, activeNodes, experienceNodes)
 	// socialSalience := salience.SpaceSalience(data.Social, activeNodes, experienceNodes)
 	fmt.Println("Space salience:", spaceSalience)

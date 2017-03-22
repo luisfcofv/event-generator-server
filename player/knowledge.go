@@ -3,11 +3,10 @@ package player
 import "github.com/graphql-go/graphql"
 
 type knowledge struct {
-	Space       []int  `json:"space"`
-	Causation   string `json:"causation"`
-	Time        string `json:"time"`
-	Intention   string `json:"intention"`
-	Protagonist string `json:"protagonist"`
+	Space  []int  `json:"space"`
+	Goals  []int  `json:"goals"`
+	Social []int  `json:"social"`
+	Time   string `json:"time"`
 }
 
 var knowledgeType = graphql.NewObject(
@@ -17,16 +16,13 @@ var knowledgeType = graphql.NewObject(
 			"space": &graphql.Field{
 				Type: graphql.NewList(graphql.Int),
 			},
-			"causation": &graphql.Field{
-				Type: graphql.String,
+			"goals": &graphql.Field{
+				Type: graphql.NewList(graphql.Int),
+			},
+			"social": &graphql.Field{
+				Type: graphql.NewList(graphql.Int),
 			},
 			"time": &graphql.Field{
-				Type: graphql.String,
-			},
-			"intention": &graphql.Field{
-				Type: graphql.String,
-			},
-			"protagonist": &graphql.Field{
 				Type: graphql.String,
 			},
 		},
