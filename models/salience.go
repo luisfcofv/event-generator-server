@@ -5,11 +5,11 @@ import (
 )
 
 type Salience struct {
-	Space     float32 `json:"space"`
-	Social    float32 `json:"social"`
-	Causation float32 `json:"causation"`
-	Intention float32 `json:"intention"`
-	Time      float32 `json:"time"`
+	Space     float64 `json:"space"`
+	Social    float64 `json:"social"`
+	Causation float64 `json:"causation"`
+	Intention float64 `json:"intention"`
+	Time      float64 `json:"time"`
 }
 
 var SalienceType = graphql.NewObject(

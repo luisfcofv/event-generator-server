@@ -9,11 +9,14 @@ type PlayerState struct {
 	Goal     int `json:"goal"`
 }
 
-var playerType = graphql.NewObject(
+var playerStateType = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "Player",
 		Fields: graphql.Fields{
 			"location": &graphql.Field{
+				Type: graphql.Int,
+			},
+			"goal": &graphql.Field{
 				Type: graphql.Int,
 			},
 		},
@@ -29,7 +32,7 @@ var StateType = graphql.NewObject(
 		Name: "State",
 		Fields: graphql.Fields{
 			"player": &graphql.Field{
-				Type: playerType,
+				Type: playerStateType,
 			},
 		},
 	},

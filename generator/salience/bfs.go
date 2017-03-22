@@ -5,10 +5,6 @@ type node struct {
 	Distance int
 }
 
-func computeSalience(distance int, totalNodes int) float32 {
-	return 1.0 - float32(distance)/float32(totalNodes)
-}
-
 func bfs(locationID int, nodesMap map[int][]int, experienceNodes []int) int {
 	queue := make([]node, 0)
 	visitedNodes := make([]int, 0)
@@ -39,6 +35,7 @@ func bfs(locationID int, nodesMap map[int][]int, experienceNodes []int) int {
 
 			if !visited {
 				queue = append(queue, node{adjacentNode, currentNode.Distance + 1})
+				visitedNodes = append(visitedNodes, adjacentNode)
 			}
 		}
 	}
