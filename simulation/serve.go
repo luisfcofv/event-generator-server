@@ -10,7 +10,6 @@ import (
 
 	"github.com/luisfcofv/indexter/aws"
 	"github.com/luisfcofv/indexter/models"
-	"github.com/luisfcofv/indexter/templates"
 )
 
 /*
@@ -26,8 +25,7 @@ var queryType = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "Query",
 		Fields: graphql.Fields{
-			"world":          models.WorldField,
-			"eventTemplates": templates.EventTemplatesField,
+			"world": models.WorldField,
 		},
 	})
 

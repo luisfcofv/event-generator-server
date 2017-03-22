@@ -4,11 +4,10 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/graphql-go/graphql"
 	"github.com/luisfcofv/indexter/models"
 )
 
-func getEventTemplates(world models.World) []models.Event {
+func GetEventTemplates(world models.World) []models.Event {
 	return []models.Event{
 		getFirstTemplate(world),
 		getSecondTemplate(world),
@@ -105,21 +104,4 @@ func getFifthTemplate(world models.World) models.Event {
 	}
 
 	return event
-}
-
-var EventTemplatesField = &graphql.Field{
-	Type: graphql.NewList(models.EventType),
-	Args: graphql.FieldConfigArgument{
-		"name": &graphql.ArgumentConfig{
-			Type: graphql.String,
-		},
-	},
-	Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-		name, isOK := p.Args["name"].(string)
-		if isOK {
-			world := models.GetWorld(name)
-			return getEventTemplates(world), nil
-		}
-		return nil, nil
-	},
 }

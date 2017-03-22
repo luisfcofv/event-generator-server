@@ -10,6 +10,7 @@ import (
 	"github.com/luisfcofv/indexter/aws"
 	"github.com/luisfcofv/indexter/models"
 	"github.com/luisfcofv/indexter/player"
+	"github.com/luisfcofv/indexter/templates"
 )
 
 func CreateWorld() {
@@ -22,8 +23,6 @@ func CreateWorld() {
 	state := createInitialState()
 	agents := createAgents()
 
-	fmt.Println(state)
-
 	myWorld := models.World{
 		Name:      "My world",
 		Player:    player,
@@ -32,6 +31,9 @@ func CreateWorld() {
 		State:     state,
 		Goals:     goals,
 	}
+
+	latestEvents := templates.GetEventTemplates(myWorld)
+	myWorld.LatestEvents = latestEvents
 
 	newWorldAttributes, err := dynamodbattribute.MarshalMap(myWorld)
 	if err != nil {
@@ -89,11 +91,11 @@ func createLocations() []models.Location {
 }
 
 func createAgents() []models.Agent {
-	agent1 := models.Agent{1, "Agent 1", "The king", 1, nil}
-	agent2 := models.Agent{2, "Agent 2", "Witness", 2, nil}
-	agent3 := models.Agent{3, "Agent 3", "Wizard", 3, nil}
-	agent4 := models.Agent{4, "Agent 4", "The queen", 4, nil}
-	agent5 := models.Agent{5, "Agent 5", "Traveler ", 5, nil}
+	agent1 := models.Agent{1, "Agent 1", "The king", nil}
+	agent2 := models.Agent{2, "Agent 2", "Witness", nil}
+	agent3 := models.Agent{3, "Agent 3", "Wizard", nil}
+	agent4 := models.Agent{4, "Agent 4", "The Queen", nil}
+	agent5 := models.Agent{5, "Agent 5", "Traveler ", nil}
 
 	agent1.Connect(&agent2)
 	agent2.Connect(&agent3)

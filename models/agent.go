@@ -6,7 +6,6 @@ type Agent struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	Location    int    `json:"location"`
 	Connections []int  `json:"connections"`
 }
 
@@ -30,9 +29,6 @@ var AgentType = graphql.NewObject(
 			},
 			"connections": &graphql.Field{
 				Type: graphql.NewList(graphql.Int),
-			},
-			"location": &graphql.Field{
-				Type: graphql.Int,
 			},
 		},
 	},
