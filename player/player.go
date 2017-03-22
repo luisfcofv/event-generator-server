@@ -4,7 +4,7 @@ import "github.com/graphql-go/graphql"
 
 type Player struct {
 	Name      string    `json:"name"`
-	Knowledge knowledge `json:"knowledge"`
+	Knowledge Knowledge `json:"knowledge"`
 }
 
 var PlayerType = graphql.NewObject(

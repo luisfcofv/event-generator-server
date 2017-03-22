@@ -14,10 +14,7 @@ import (
 )
 
 func CreateWorld() {
-	player := player.Player{
-		Name: "Hero",
-	}
-
+	player := createPlayer()
 	goals := createGoals()
 	locations := createLocations()
 	state := createInitialState()
@@ -49,6 +46,18 @@ func CreateWorld() {
 
 	if err != nil {
 		fmt.Println(err)
+	}
+}
+
+func createPlayer() player.Player {
+	knowledge := player.Knowledge{
+		Locations: []int{1},
+		Goals:     []int{1},
+	}
+
+	return player.Player{
+		Name:      "Protagonist",
+		Knowledge: knowledge,
 	}
 }
 

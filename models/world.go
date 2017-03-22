@@ -58,8 +58,8 @@ var WorldField = &graphql.Field{
 			Type: graphql.String,
 		},
 	},
-	Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-		name, isOK := p.Args["name"].(string)
+	Resolve: func(params graphql.ResolveParams) (interface{}, error) {
+		name, isOK := params.Args["name"].(string)
 		if isOK {
 			return GetWorld(name), nil
 		}

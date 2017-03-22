@@ -2,18 +2,18 @@ package player
 
 import "github.com/graphql-go/graphql"
 
-type knowledge struct {
-	Space  []int  `json:"space"`
-	Goals  []int  `json:"goals"`
-	Social []int  `json:"social"`
-	Time   string `json:"time"`
+type Knowledge struct {
+	Locations []int  `json:"locations"`
+	Goals     []int  `json:"goals"`
+	Social    []int  `json:"social"`
+	Time      string `json:"time"`
 }
 
 var knowledgeType = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "Knowledge",
 		Fields: graphql.Fields{
-			"space": &graphql.Field{
+			"locations": &graphql.Field{
 				Type: graphql.NewList(graphql.Int),
 			},
 			"goals": &graphql.Field{

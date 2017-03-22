@@ -10,6 +10,7 @@ import (
 
 	"github.com/luisfcofv/indexter/aws"
 	"github.com/luisfcofv/indexter/models"
+	"github.com/luisfcofv/indexter/templates"
 )
 
 /*
@@ -31,7 +32,8 @@ var queryType = graphql.NewObject(
 
 var schema, _ = graphql.NewSchema(
 	graphql.SchemaConfig{
-		Query: queryType,
+		Query:    queryType,
+		Mutation: templates.EventTemplatesMutation,
 	},
 )
 
