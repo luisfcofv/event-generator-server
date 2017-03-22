@@ -11,6 +11,7 @@ import (
 	"github.com/graphql-go/graphql"
 
 	"github.com/luisfcofv/indexter/aws"
+	"github.com/luisfcofv/indexter/generator"
 	"github.com/luisfcofv/indexter/models"
 )
 
@@ -128,6 +129,7 @@ var EventTemplatesMutation = graphql.NewObject(graphql.ObjectConfig{
 
 				eventTemplates := GetEventTemplates(world)
 				world.LatestEvents = eventTemplates
+				generator.Compute(&world)
 
 				newWorldAttributes, err := dynamodbattribute.MarshalMap(world)
 				if err != nil {

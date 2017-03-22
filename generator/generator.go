@@ -15,14 +15,18 @@ type generator struct {
 
 var data generator
 
+// func Compute(world *models.World) {
+// 	world.Player.Name = "Luis"
+// }
+
 func Compute() {
 	_ = importJSONDataFromFile("data.json", &data)
 
 	// foreach instance templace
 	// compute total salience
 
-	activeNodes := []string{"2", "7"}
-	experienceNodes := []string{"1", "4"}
+	activeNodes := []int{2, 7}
+	experienceNodes := []int{1, 4}
 
 	spaceSalience := salience.SpaceSalience(data.Locations, activeNodes, experienceNodes)
 	// socialSalience := salience.SpaceSalience(data.Social, activeNodes, experienceNodes)

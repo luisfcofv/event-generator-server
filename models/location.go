@@ -3,8 +3,8 @@ package models
 import "github.com/graphql-go/graphql"
 
 type Neighbor struct {
-	ID       int32 `json:"id"`
-	Distance int32 `json:"distance"`
+	ID       int `json:"id"`
+	Distance int `json:"distance"`
 }
 
 var neighborType = graphql.NewObject(
@@ -22,13 +22,13 @@ var neighborType = graphql.NewObject(
 )
 
 type Location struct {
-	ID          int32      `json:"id"`
+	ID          int        `json:"id"`
 	Name        string     `json:"name"`
 	Description string     `json:"description"`
 	Neighbors   []Neighbor `json:"neighbors"`
 }
 
-func (location *Location) Connect(otherLocation *Location, distance int32) {
+func (location *Location) Connect(otherLocation *Location, distance int) {
 	location.Neighbors = append(location.Neighbors, Neighbor{otherLocation.ID, distance})
 	otherLocation.Neighbors = append(otherLocation.Neighbors, Neighbor{location.ID, distance})
 }

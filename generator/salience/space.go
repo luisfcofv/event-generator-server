@@ -5,18 +5,18 @@ import (
 )
 
 type node struct {
-	ID       string
+	ID       int
 	Distance int
 }
 
-func SpaceSalience(locations []models.Location, activeNodes []string, experienceNodes []string) map[string]float32 {
-	locationsMap := make(map[string][]models.Neighbor)
+func SpaceSalience(locations []models.Location, activeNodes []int, experienceNodes []int) map[int]float32 {
+	locationsMap := make(map[int][]models.Neighbor)
 
 	for _, location := range locations {
 		locationsMap[location.ID] = location.Neighbors
 	}
 
-	resultsMap := make(map[string]float32)
+	resultsMap := make(map[int]float32)
 	for _, activeNodeID := range activeNodes {
 		distance := closestNode(activeNodeID, locationsMap, experienceNodes)
 		resultsMap[activeNodeID] = computeSalience(distance, len(locations))
@@ -29,9 +29,9 @@ func computeSalience(distance int, totalNodes int) float32 {
 	return 1.0 - float32(distance)/float32(totalNodes)
 }
 
-func closestNode(activeNodeID string, locationsMap map[string][]models.Neighbor, experienceNodes []string) int {
+func closestNode(activeNodeID int, locationsMap map[int][]models.Neighbor, experienceNodes []int) int {
 	queue := make([]node, 0)
-	visitedNodes := make([]string, 0)
+	visitedNodes := make([]int, 0)
 
 	// Push
 	queue = append(queue, node{activeNodeID, 0})
