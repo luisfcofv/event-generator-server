@@ -29,9 +29,9 @@ func getFirstTemplate(world models.World) models.Event {
 	time := time.Now().Unix()
 	rand.Seed(time)
 
-	location := rand.Intn(len(world.Locations))
-	agent := rand.Intn(len(world.Agents))
-	goal := rand.Intn(len(world.Goals))
+	location := rand.Intn(len(world.Locations)) + 1
+	agent := rand.Intn(len(world.Agents)) + 1
+	goal := rand.Intn(len(world.Goals)) + 1
 
 	event := models.Event{
 		Name:        "Template 1",

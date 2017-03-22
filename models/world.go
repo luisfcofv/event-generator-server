@@ -14,7 +14,7 @@ import (
 
 type World struct {
 	Name         string        `json:"name"`
-	State        interface{}   `json:"state"`
+	State        State         `json:"state"`
 	Player       player.Player `json:"player"`
 	Locations    []Location    `json:"locations"`
 	Agents       []Agent       `json:"agents"`

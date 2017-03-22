@@ -84,11 +84,11 @@ func createLocations() []models.Location {
 	location4 := models.Location{4, "City 4", "Description 4", nil}
 	location5 := models.Location{5, "City 5", "Description 5", nil}
 
-	location1.Connect(&location2, 0)
-	location2.Connect(&location4, 0)
-	location2.Connect(&location5, 0)
-	location3.Connect(&location5, 0)
-	location4.Connect(&location5, 0)
+	location1.Connect(&location2)
+	location2.Connect(&location4)
+	location2.Connect(&location5)
+	location3.Connect(&location5)
+	location4.Connect(&location5)
 
 	return []models.Location{
 		location1,
@@ -120,14 +120,11 @@ func createAgents() []models.Agent {
 	}
 }
 
-func createInitialState() interface{} {
-	state := make(map[string]interface{})
-
-	playerState := make(map[string]interface{})
-
-	playerState["location"] = 1
-	playerState["goal"] = 1
-	state["player"] = playerState
-
-	return state
+func createInitialState() models.State {
+	return models.State{
+		Player: models.PlayerState{
+			Location: 1,
+			Goal:     1,
+		},
+	}
 }

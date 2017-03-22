@@ -5,12 +5,13 @@ import (
 )
 
 type Event struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Location    int    `json:"location"`
-	Agent       int    `json:"agent"`
-	Goal        int    `json:"goal"`
-	Time        int64  `json:"time"`
+	Name        string   `json:"name"`
+	Description string   `json:"description"`
+	Location    int      `json:"location"`
+	Agent       int      `json:"agent"`
+	Goal        int      `json:"goal"`
+	Time        int64    `json:"time"`
+	Salience    Salience `json:"salience"`
 }
 
 var EventType = graphql.NewObject(
@@ -34,6 +35,9 @@ var EventType = graphql.NewObject(
 			},
 			"time": &graphql.Field{
 				Type: graphql.Int,
+			},
+			"salience": &graphql.Field{
+				Type: SalienceType,
 			},
 		},
 	},
