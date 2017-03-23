@@ -6,7 +6,6 @@ import (
 
 type PlayerState struct {
 	Location int `json:"location"`
-	Goal     int `json:"goal"`
 }
 
 var playerStateType = graphql.NewObject(
@@ -14,9 +13,6 @@ var playerStateType = graphql.NewObject(
 		Name: "Player",
 		Fields: graphql.Fields{
 			"location": &graphql.Field{
-				Type: graphql.Int,
-			},
-			"goal": &graphql.Field{
 				Type: graphql.Int,
 			},
 		},

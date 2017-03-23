@@ -12,5 +12,8 @@ func Compute(world *models.World) {
 
 		socialSalience := salience.SocialSalience(world, event.Agent)
 		world.LatestEvents[index].Salience.Social = socialSalience
+
+		intentionSalience := salience.IntentionSalience(world, event.Goal)
+		world.LatestEvents[index].Salience.Intention = intentionSalience
 	}
 }

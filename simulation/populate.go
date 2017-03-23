@@ -124,7 +124,6 @@ func createInitialState() models.State {
 	return models.State{
 		Player: models.PlayerState{
 			Location: 1,
-			Goal:     1,
 		},
 	}
 }
