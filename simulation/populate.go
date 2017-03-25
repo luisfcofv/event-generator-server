@@ -51,6 +51,7 @@ func CreateWorld() {
 
 func createPlayer() player.Player {
 	knowledge := player.Knowledge{
+		Social:    []int{1},
 		Locations: []int{1},
 		Goals:     []int{1},
 	}

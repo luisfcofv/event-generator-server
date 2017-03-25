@@ -15,5 +15,8 @@ func Compute(world *models.World) {
 
 		intentionSalience := salience.IntentionSalience(world, event.Goal)
 		world.LatestEvents[index].Salience.Intention = intentionSalience
+
+		causationSalience := salience.CausationSalience(world, event.Goal)
+		world.LatestEvents[index].Salience.Causation = causationSalience
 	}
 }

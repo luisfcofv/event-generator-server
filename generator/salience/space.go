@@ -13,7 +13,6 @@ func SpaceSalience(world *models.World, eventLocation int) float64 {
 	salience := computeSpaceSalience(distance, len(world.Locations))
 
 	playerLocation := world.State.Player.Location
-
 	if salience == 1.0 && eventLocation != playerLocation {
 		value := 1.0 / float64(len(world.Locations))
 		salience -= value / 2.0

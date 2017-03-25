@@ -10,6 +10,7 @@ type Event struct {
 	Location    int      `json:"location"`
 	Agent       int      `json:"agent"`
 	Goal        int      `json:"goal"`
+	Cause       int      `json:"cause"`
 	Time        int64    `json:"time"`
 	Salience    Salience `json:"salience"`
 }

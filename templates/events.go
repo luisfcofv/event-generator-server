@@ -32,6 +32,7 @@ func getFirstTemplate(world models.World) models.Event {
 	location := rand.Intn(len(world.Locations)) + 1
 	agent := rand.Intn(len(world.Agents)) + 1
 	goal := rand.Intn(len(world.Goals)) + 1
+	causation := rand.Intn(len(world.Goals)) + 1
 
 	event := models.Event{
 		Name:        "Template 1",
@@ -40,6 +41,7 @@ func getFirstTemplate(world models.World) models.Event {
 		Location:    location,
 		Goal:        goal,
 		Time:        time,
+		Cause:       causation,
 	}
 
 	return event
@@ -60,6 +62,7 @@ func getSecondTemplate(world models.World) models.Event {
 		Location:    3,
 		Goal:        2, // Find the treasure
 		Time:        time,
+		Cause:       3, // Collect coins
 	}
 
 	return event
@@ -75,6 +78,7 @@ func getThirdTemplate(world models.World) models.Event {
 		Location:    2,
 		Goal:        1, // Talk to the king
 		Time:        time,
+		Cause:       5, // Rescue the princess
 	}
 
 	return event
@@ -108,6 +112,7 @@ func getFifthTemplate(world models.World) models.Event {
 		Location:    possibleCities[cityID],
 		Goal:        5, // Rescue the princess
 		Time:        time,
+		Cause:       4, // Fight the dragon
 	}
 
 	return event
