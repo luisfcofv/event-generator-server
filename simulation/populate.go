@@ -2,6 +2,7 @@ package simulation
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
@@ -50,10 +51,14 @@ func CreateWorld() {
 }
 
 func createPlayer() player.Player {
+	timeStart := time.Now()
+	timeEnd := timeStart.AddDate(0, 0, 1)
+	timeRange := player.TimeRange{timeStart.Unix(), timeEnd.Unix()}
 	knowledge := player.Knowledge{
 		Social:    []int{1},
 		Locations: []int{1},
 		Goals:     []int{1},
+		Times:     []player.TimeRange{timeRange},
 	}
 
 	return player.Player{

@@ -1,14 +1,12 @@
 package models
 
-import (
-	"github.com/graphql-go/graphql"
-)
+import "github.com/graphql-go/graphql"
 
 type Event struct {
 	Name        string   `json:"name"`
 	Description string   `json:"description"`
 	Location    int      `json:"location"`
-	Agent       int      `json:"agent"`
+	Agents      []int    `json:"agents"`
 	Goal        int      `json:"goal"`
 	Cause       int      `json:"cause"`
 	Time        int64    `json:"time"`
@@ -28,8 +26,8 @@ var EventType = graphql.NewObject(
 			"location": &graphql.Field{
 				Type: graphql.Int,
 			},
-			"agent": &graphql.Field{
-				Type: graphql.Int,
+			"agents": &graphql.Field{
+				Type: graphql.NewList(graphql.Int),
 			},
 			"goal": &graphql.Field{
 				Type: graphql.Int,

@@ -1,8 +1,6 @@
 package salience
 
-import (
-	"github.com/luisfcofv/indexter/models"
-)
+import "github.com/luisfcofv/indexter/models"
 
 func CausationSalience(world *models.World, eventCause int) float64 {
 	for _, goal := range world.Player.Knowledge.Goals {
