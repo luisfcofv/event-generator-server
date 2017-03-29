@@ -52,7 +52,7 @@ func CreateWorld() {
 
 func createPlayer() player.Player {
 	timeStart := time.Now()
-	timeEnd := timeStart.AddDate(0, 0, 1)
+	timeEnd := timeStart.AddDate(0, 0, 2)
 	timeRange := player.TimeRange{timeStart.Unix(), timeEnd.Unix()}
 	knowledge := player.Knowledge{
 		Social:    []int{1},
