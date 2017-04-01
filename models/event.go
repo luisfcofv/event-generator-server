@@ -3,14 +3,17 @@ package models
 import "github.com/graphql-go/graphql"
 
 type Event struct {
-	Name        string   `json:"name"`
-	Description string   `json:"description"`
-	Location    int      `json:"location"`
-	Agents      []int    `json:"agents"`
-	Goal        int      `json:"goal"`
-	Cause       int      `json:"cause"`
-	Time        int64    `json:"time"`
-	Salience    Salience `json:"salience"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Location    int    `json:"location"`
+	Agents      []int  `json:"agents"`
+	// https://github.com/galaxykate/tracery
+	// Generate the events with this tool
+	// Fill out the missing properties with randomly properties
+	Goal     int      `json:"goal"`
+	Cause    int      `json:"cause"`
+	Time     int64    `json:"time"`
+	Salience Salience `json:"salience"`
 }
 
 var EventType = graphql.NewObject(

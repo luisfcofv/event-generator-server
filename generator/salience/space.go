@@ -6,7 +6,11 @@ func SpaceSalience(world *models.World, eventLocation int) float64 {
 	locationsMap := make(map[int][]int)
 
 	for _, location := range world.Locations {
-		locationsMap[location.ID] = location.Neighbors
+		var neighborIds []int
+		for _, neighbor := range location.Neighbors {
+			neighborIds = append(neighborIds, neighbor.ID)
+		}
+		locationsMap[location.ID] = neighborIds
 	}
 
 	distance := bfs(eventLocation, locationsMap, world.Player.Knowledge.Locations)

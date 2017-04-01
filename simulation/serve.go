@@ -9,31 +9,12 @@ import (
 	"github.com/sogko/graphql-go-handler"
 
 	"github.com/luisfcofv/indexter/aws"
-	"github.com/luisfcofv/indexter/models"
-	"github.com/luisfcofv/indexter/templates"
 )
-
-/*
-   Create Query object type with fields "user" has type [userType] by using GraphQLObjectTypeConfig:
-       - Name: name of object type
-       - Fields: a map of fields by using GraphQLFields
-   Setup type of field use GraphQLFieldConfig to define:
-       - Type: type of field
-       - Args: arguments to query with current field
-       - Resolve: function to query data using params from [Args] and return value with current type
-*/
-var queryType = graphql.NewObject(
-	graphql.ObjectConfig{
-		Name: "Query",
-		Fields: graphql.Fields{
-			"world": models.WorldField,
-		},
-	})
 
 var schema, _ = graphql.NewSchema(
 	graphql.SchemaConfig{
-		Query:    queryType,
-		Mutation: templates.EventTemplatesMutation,
+		Query:    rootQuery,
+		Mutation: rootMutation,
 	},
 )
 
@@ -50,7 +31,7 @@ func executeQuery(query string, schema graphql.Schema) *graphql.Result {
 
 func Serve() {
 	db.Setup()
-	CreateWorld()
+	createWorld()
 
 	mux := http.NewServeMux()
 	graphqlHandler := handler.New(&handler.Config{

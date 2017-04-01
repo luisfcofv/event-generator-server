@@ -15,7 +15,7 @@ var PlayerType = graphql.NewObject(
 				Type: graphql.String,
 			},
 			"knowledge": &graphql.Field{
-				Type: knowledgeType,
+				Type: KnowledgeType,
 			},
 		},
 	},

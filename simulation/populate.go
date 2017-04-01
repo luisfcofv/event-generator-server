@@ -2,7 +2,6 @@ package simulation
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
@@ -14,7 +13,7 @@ import (
 	"github.com/luisfcofv/indexter/templates"
 )
 
-func CreateWorld() {
+func createWorld() {
 	player := createPlayer()
 	goals := createGoals()
 	locations := createLocations()
@@ -51,28 +50,24 @@ func CreateWorld() {
 }
 
 func createPlayer() player.Player {
-	timeStart := time.Now()
-	timeEnd := timeStart.AddDate(0, 0, 2)
-	timeRange := player.TimeRange{timeStart.Unix(), timeEnd.Unix()}
 	knowledge := player.Knowledge{
 		Social:    []int{1},
 		Locations: []int{1},
 		Goals:     []int{1},
-		Times:     []player.TimeRange{timeRange},
 	}
 
 	return player.Player{
-		Name:      "Protagonist",
+		Name:      "Hero",
 		Knowledge: knowledge,
 	}
 }
 
 func createGoals() []models.Goal {
-	goal1 := models.Goal{1, "Goal 1", "Talk to the king"}
-	goal2 := models.Goal{2, "Goal 2", "Find the treasure"}
-	goal3 := models.Goal{3, "Goal 3", "Collect coins"}
-	goal4 := models.Goal{4, "Goal 4", "Fight the dragon"}
-	goal5 := models.Goal{5, "Goal 5", "Rescue the princess"}
+	goal1 := models.Goal{1, "Talk to the king", "Talk to the king"}
+	goal2 := models.Goal{2, "Find the treasure", "Find the treasure"}
+	goal3 := models.Goal{3, "Collect coins", "Collect coins"}
+	goal4 := models.Goal{4, "Fight the dragon", "Fight the dragon"}
+	goal5 := models.Goal{5, "Rescue the princess", "Rescue the princess"}
 
 	return []models.Goal{
 		goal1,
@@ -84,17 +79,17 @@ func createGoals() []models.Goal {
 }
 
 func createLocations() []models.Location {
-	location1 := models.Location{1, "City 1", "Description 1", nil}
-	location2 := models.Location{2, "City 2", "Description 2", nil}
-	location3 := models.Location{3, "City 3", "Description 3", nil}
-	location4 := models.Location{4, "City 4", "Description 4", nil}
-	location5 := models.Location{5, "City 5", "Description 5", nil}
+	location1 := models.Location{1, "Castle", "Description 1", nil}
+	location2 := models.Location{2, "Main Town", "Description 2", nil}
+	location3 := models.Location{3, "Small Town", "Description 3", nil}
+	location4 := models.Location{4, "Valley", "Description 4", nil}
+	location5 := models.Location{5, "Volcano", "Description 5", nil}
 
-	location1.Connect(&location2)
-	location2.Connect(&location4)
-	location2.Connect(&location5)
-	location3.Connect(&location5)
-	location4.Connect(&location5)
+	location1.Connect(&location2, 2)
+	location2.Connect(&location4, 1)
+	location2.Connect(&location5, 4)
+	location3.Connect(&location5, 3)
+	location4.Connect(&location5, 7)
 
 	return []models.Location{
 		location1,
@@ -106,11 +101,11 @@ func createLocations() []models.Location {
 }
 
 func createAgents() []models.Agent {
-	agent1 := models.Agent{1, "Agent 1", "The king", nil}
-	agent2 := models.Agent{2, "Agent 2", "Witness", nil}
-	agent3 := models.Agent{3, "Agent 3", "Wizard", nil}
-	agent4 := models.Agent{4, "Agent 4", "The Queen", nil}
-	agent5 := models.Agent{5, "Agent 5", "Traveler ", nil}
+	agent1 := models.Agent{1, "King", "The king", nil}
+	agent2 := models.Agent{2, "Witness", "Witness", nil}
+	agent3 := models.Agent{3, "Wizard", "Wizard", nil}
+	agent4 := models.Agent{4, "Queen", "The Queen", nil}
+	agent5 := models.Agent{5, "Traveler", "Traveler ", nil}
 
 	agent1.Connect(&agent2)
 	agent2.Connect(&agent3)

@@ -1,17 +1,9 @@
 package templates
 
 import (
-	"fmt"
 	"math/rand"
 	"time"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/dynamodb"
-	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
-	"github.com/graphql-go/graphql"
-
-	"github.com/luisfcofv/indexter/aws"
-	"github.com/luisfcofv/indexter/generator"
 	"github.com/luisfcofv/indexter/models"
 )
 
@@ -117,42 +109,3 @@ func getFifthTemplate(world models.World) models.Event {
 
 	return event
 }
-
-var EventTemplatesMutation = graphql.NewObject(graphql.ObjectConfig{
-	Name: "RootMutation",
-	Fields: graphql.Fields{
-		"generateEvents": &graphql.Field{
-			Type: graphql.NewList(models.EventType),
-			Args: graphql.FieldConfigArgument{
-				"world": &graphql.ArgumentConfig{
-					Type: graphql.String,
-				},
-			},
-			Resolve: func(params graphql.ResolveParams) (interface{}, error) {
-				worldName, _ := params.Args["world"].(string)
-				world := models.GetWorld(worldName)
-
-				eventTemplates := GetEventTemplates(world)
-				world.LatestEvents = eventTemplates
-				generator.Compute(&world)
-
-				newWorldAttributes, err := dynamodbattribute.MarshalMap(world)
-				if err != nil {
-					fmt.Println(err)
-				}
-
-				item := &dynamodb.PutItemInput{
-					TableName: aws.String(db.AppConfig.Table),
-					Item:      newWorldAttributes,
-				}
-
-				_, err = db.DynamodbClient.PutItem(item)
-				if err != nil {
-					fmt.Println(err)
-				}
-
-				return eventTemplates, nil
-			},
-		},
-	},
-})
