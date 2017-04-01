@@ -14,6 +14,21 @@ import (
 	"github.com/luisfcofv/indexter/player"
 )
 
+func getValues(object interface{}) []int {
+	if object == nil {
+		return []int{}
+	}
+
+	values := object.([]interface{})
+	var list []int
+
+	for index := range values {
+		list = append(list, values[index].(int))
+	}
+
+	return list
+}
+
 var GenerateEventsField = &graphql.Field{
 	Type: graphql.NewList(models.EventType),
 	Args: graphql.FieldConfigArgument{
@@ -28,10 +43,19 @@ var GenerateEventsField = &graphql.Field{
 		worldName, _ := params.Args["world"].(string)
 		world := models.GetWorld(worldName)
 
-		currentKnowledge, _ := params.Args["knowledge"]
-		if currentKnowledge != nil {
-			fmt.Println(currentKnowledge)
+		interfaceKnowledge, ok := params.Args["knowledge"]
+		if ok {
+			mapKnowledge, ok := interfaceKnowledge.(map[string]interface{})
 
+			if ok {
+				locations := getValues(mapKnowledge["locations"])
+				social := getValues(mapKnowledge["social"])
+				goals := getValues(mapKnowledge["goals"])
+
+				world.Player.Knowledge.Locations = locations
+				world.Player.Knowledge.Social = social
+				world.Player.Knowledge.Goals = goals
+			}
 		}
 
 		eventTemplates := GetEventTemplates(world)
@@ -56,10 +80,3 @@ var GenerateEventsField = &graphql.Field{
 		return eventTemplates, nil
 	},
 }
-
-var RootMutation = graphql.NewObject(graphql.ObjectConfig{
-	Name: "RootMutation",
-	Fields: graphql.Fields{
-		"generateEvents": GenerateEventsField,
-	},
-})
