@@ -10,6 +10,7 @@ type Salience struct {
 	Causation float64 `json:"causation"`
 	Intention float64 `json:"intention"`
 	Time      float64 `json:"time"`
+	Total     float64 `json:"total"`
 }
 
 var SalienceType = graphql.NewObject(
@@ -29,6 +30,9 @@ var SalienceType = graphql.NewObject(
 				Type: graphql.Float,
 			},
 			"time": &graphql.Field{
+				Type: graphql.Float,
+			},
+			"total": &graphql.Field{
 				Type: graphql.Float,
 			},
 		},

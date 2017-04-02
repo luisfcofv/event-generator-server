@@ -8,6 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 
 	"github.com/luisfcofv/indexter/aws"
+	"github.com/luisfcofv/indexter/generator"
 	"github.com/luisfcofv/indexter/models"
 	"github.com/luisfcofv/indexter/player"
 	"github.com/luisfcofv/indexter/templates"
@@ -31,6 +32,7 @@ func createWorld() {
 
 	latestEvents := templates.GetEventTemplates(myWorld)
 	myWorld.LatestEvents = latestEvents
+	generator.Compute(&myWorld)
 
 	newWorldAttributes, err := dynamodbattribute.MarshalMap(myWorld)
 	if err != nil {

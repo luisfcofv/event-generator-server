@@ -6,7 +6,7 @@ import (
 	"github.com/luisfcofv/indexter/models"
 )
 
-func SocialSalience(world *models.World, agents []int) float64 {
+func SocialSalience(world *models.World, agents []models.Agent) float64 {
 	socialMap := make(map[int][]int)
 
 	for _, agent := range world.Agents {
@@ -15,12 +15,12 @@ func SocialSalience(world *models.World, agents []int) float64 {
 
 	distance := float64(len(world.Agents))
 	for _, agent := range agents {
-		if agent == 0 {
+		if agent.ID == 0 {
 			// 0 is the protagonist
 			return 1.0
 		}
 
-		agentDistance := bfs(agent, socialMap, world.Player.Knowledge.Social)
+		agentDistance := bfs(agent.ID, socialMap, world.Player.Knowledge.Social)
 		distance = math.Min(distance, float64(agentDistance))
 	}
 

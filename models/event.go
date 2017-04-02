@@ -2,18 +2,19 @@ package models
 
 import "github.com/graphql-go/graphql"
 
+// https://github.com/galaxykate/tracery
+// Generate the events with this tool
+// Fill out the missing properties with randomly properties
 type Event struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Location    int    `json:"location"`
-	Agents      []int  `json:"agents"`
-	// https://github.com/galaxykate/tracery
-	// Generate the events with this tool
-	// Fill out the missing properties with randomly properties
-	Goal     int      `json:"goal"`
-	Cause    int      `json:"cause"`
-	Time     int64    `json:"time"`
-	Salience Salience `json:"salience"`
+	Name        string   `json:"name"`
+	Description string   `json:"description"`
+	Location    Location `json:"location"`
+	Protagonist bool     `json:"protagonist"`
+	Agents      []Agent  `json:"agents"`
+	Goal        Goal     `json:"goal"`
+	Cause       Goal     `json:"cause"`
+	Time        int      `json:"time"`
+	Salience    Salience `json:"salience"`
 }
 
 var EventType = graphql.NewObject(
@@ -27,13 +28,19 @@ var EventType = graphql.NewObject(
 				Type: graphql.String,
 			},
 			"location": &graphql.Field{
-				Type: graphql.Int,
+				Type: LocationType,
+			},
+			"protagonist": &graphql.Field{
+				Type: graphql.Boolean,
 			},
 			"agents": &graphql.Field{
-				Type: graphql.NewList(graphql.Int),
+				Type: graphql.NewList(AgentType),
 			},
 			"goal": &graphql.Field{
-				Type: graphql.Int,
+				Type: GoalType,
+			},
+			"cause": &graphql.Field{
+				Type: GoalType,
 			},
 			"time": &graphql.Field{
 				Type: graphql.Int,

@@ -19,7 +19,10 @@ func Compute(world *models.World) {
 		causationSalience := salience.CausationSalience(world, event.Goal)
 		world.LatestEvents[index].Salience.Causation = causationSalience
 
-		timeSalience := salience.TimeSalience(world, event.Time)
+		timeSalience := salience.TimeSalience(world, event.Location, event.Time)
 		world.LatestEvents[index].Salience.Time = timeSalience
+
+		totalSalience := (spaceSalience + socialSalience + intentionSalience + causationSalience + timeSalience) / 5
+		world.LatestEvents[index].Salience.Total = totalSalience
 	}
 }
