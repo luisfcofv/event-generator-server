@@ -36,12 +36,12 @@ func (n *Node) edgesToString() string {
 	return s + "\n"
 }
 
-func (g *Graph) ShowShortestDistance(id int) {
+func (g *Graph) ShortestDistance(id int) int {
 	n, ok := g.nodes[id]
 	if ok != true {
 		log.Fatal("Attempting to print shortest distance; could not find node %d", id)
 	}
-	fmt.Printf("The shortest distance for Node %d is: %d\n", id, n.shortestDistance)
+	return n.shortestDistance
 }
 
 func New() *Graph {
@@ -102,8 +102,8 @@ func (g *Graph) ComputeShortestDistances(s int) {
 				}
 			}
 		}
+
 		if found == true {
-			// assign the minScore to the choice node and bring it into X
 			g.nodes[nID].visited = true
 			g.nodes[nID].shortestDistance = minScore
 		}

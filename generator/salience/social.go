@@ -3,6 +3,7 @@ package salience
 import (
 	"math"
 
+	"github.com/luisfcofv/indexter/graph"
 	"github.com/luisfcofv/indexter/models"
 )
 
@@ -20,7 +21,7 @@ func SocialSalience(world *models.World, agents []models.Agent) float64 {
 			return 1.0
 		}
 
-		agentDistance := bfs(agent.ID, socialMap, world.Player.Knowledge.Social)
+		agentDistance := graph.BreadthFirstSearch(agent.ID, socialMap, world.Player.Knowledge.Social)
 		distance = math.Min(distance, float64(agentDistance))
 	}
 

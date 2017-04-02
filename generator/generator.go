@@ -2,10 +2,29 @@ package generator
 
 import (
 	"github.com/luisfcofv/indexter/generator/salience"
+	"github.com/luisfcofv/indexter/graph"
 	"github.com/luisfcofv/indexter/models"
 )
 
+func buildLocationGraph(world *models.World) *graph.Graph {
+	playerLocation := world.State.Player.Location
+
+	locationGraph := graph.New()
+
+	for _, location := range world.Locations {
+		node := locationGraph.AddNode(location.ID)
+
+		for _, neighbor := range location.Neighbors {
+			node.AddEdge(neighbor.ID, neighbor.Time)
+		}
+	}
+
+	locationGraph.ComputeShortestDistances(playerLocation)
+	return locationGraph
+}
+
 func Compute(world *models.World) {
+	locationGraph := buildLocationGraph(world)
 	for index, event := range world.LatestEvents {
 		spaceSalience := salience.SpaceSalience(world, event.Location)
 		world.LatestEvents[index].Salience.Space = spaceSalience
@@ -19,7 +38,7 @@ func Compute(world *models.World) {
 		causationSalience := salience.CausationSalience(world, event.Goal)
 		world.LatestEvents[index].Salience.Causation = causationSalience
 
-		timeSalience := salience.TimeSalience(world, event.Location, event.Time)
+		timeSalience := salience.TimeSalience(locationGraph, event.Location, event.Time)
 		world.LatestEvents[index].Salience.Time = timeSalience
 
 		totalSalience := (spaceSalience + socialSalience + intentionSalience + causationSalience + timeSalience) / 5

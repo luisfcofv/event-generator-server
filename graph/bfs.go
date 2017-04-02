@@ -1,11 +1,11 @@
-package salience
+package graph
 
 type node struct {
 	ID       int
 	Distance int
 }
 
-func bfs(locationID int, nodesMap map[int][]int, experienceNodes []int) int {
+func BreadthFirstSearch(locationID int, nodesMap map[int][]int, experienceNodes []int) int {
 	queue := make([]node, 0)
 	visitedNodes := make([]int, 0)
 
