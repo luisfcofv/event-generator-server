@@ -1,4 +1,5 @@
-FROM golang:1.4.2-onbuild
+FROM golang:1.8-onbuild
+EXPOSE 3000
 
 # FROM golang
 # RUN mkdir -p /go/src/github.com/luisfcofv/
