@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/graphql-go/graphql"
+	"github.com/graphql-go/handler"
 	"github.com/rs/cors"
-	"github.com/sogko/graphql-go-handler"
 
 	"github.com/luisfcofv/indexter/aws"
 )
