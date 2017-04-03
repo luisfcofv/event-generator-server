@@ -29,6 +29,10 @@ func executeQuery(query string, schema graphql.Schema) *graphql.Result {
 	return result
 }
 
+func hello(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello there!")
+}
+
 func Serve() {
 	db.Setup()
 	createWorld()
@@ -38,9 +42,11 @@ func Serve() {
 		Schema: &schema,
 		Pretty: true,
 	})
+
+	mux.HandleFunc("/", hello)
 	mux.Handle("/graphql", graphqlHandler)
 
 	corsHandler := cors.Default().Handler(mux)
-	fmt.Println("Indexter is running on port 8080")
-	http.ListenAndServe(":8080", corsHandler)
+	fmt.Println("Indexter is running on port 3000")
+	http.ListenAndServe(":3000", corsHandler)
 }
