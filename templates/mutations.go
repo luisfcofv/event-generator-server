@@ -65,6 +65,18 @@ var GenerateEventsField = &graphql.Field{
 
 		if ok {
 			world.State.Player.Location = playerLocation
+
+			found := false
+			for _, location := range world.Player.Knowledge.Locations {
+				if location == playerLocation {
+					found = true
+					break
+				}
+			}
+			if !found {
+				locations := world.Player.Knowledge.Locations
+				world.Player.Knowledge.Locations = append(locations, playerLocation)
+			}
 		}
 
 		eventTemplates := GetEventTemplates(world)
