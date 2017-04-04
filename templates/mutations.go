@@ -65,7 +65,6 @@ var GenerateEventsField = &graphql.Field{
 
 		if ok {
 			world.State.Player.Location = playerLocation
-			fmt.Println(world.State.Player.Location)
 		}
 
 		eventTemplates := GetEventTemplates(world)
