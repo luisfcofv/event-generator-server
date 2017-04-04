@@ -25,6 +25,8 @@ func buildLocationGraph(world *models.World) *graph.Graph {
 
 func Compute(world *models.World) {
 	locationGraph := buildLocationGraph(world)
+	var times []int
+	longestTime := 0
 	for index, event := range world.LatestEvents {
 		spaceSalience := salience.SpaceSalience(world, event.Location)
 		world.LatestEvents[index].Salience.Space = spaceSalience
@@ -38,10 +40,18 @@ func Compute(world *models.World) {
 		causationSalience := salience.CausationSalience(world, event.Goal)
 		world.LatestEvents[index].Salience.Causation = causationSalience
 
-		timeSalience := salience.TimeSalience(locationGraph, event.Location, event.Time)
-		world.LatestEvents[index].Salience.Time = timeSalience
+		shortestTime := locationGraph.ShortestDistance(event.Location.ID)
 
-		totalSalience := (spaceSalience + socialSalience + intentionSalience + causationSalience + timeSalience) / 5
-		world.LatestEvents[index].Salience.Total = totalSalience
+		diffTime := event.Time - shortestTime
+		times = append(times, diffTime)
+		if diffTime >= longestTime {
+			longestTime = diffTime
+		}
+	}
+
+	for index, time := range times {
+		timeSalience := salience.TimeSalience(time, longestTime)
+		world.LatestEvents[index].Salience.Time = timeSalience
+		world.LatestEvents[index].Salience.ComputeTotal()
 	}
 }

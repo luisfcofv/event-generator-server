@@ -22,7 +22,7 @@ type World struct {
 	LatestEvents []Event       `json:"latestEvents"`
 }
 
-var worldType = graphql.NewObject(
+var WorldType = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "World",
 		Fields: graphql.Fields{
@@ -33,7 +33,7 @@ var worldType = graphql.NewObject(
 				Type: player.PlayerType,
 			},
 			"state": &graphql.Field{
-				Type: graphql.String,
+				Type: StateType,
 			},
 			"locations": &graphql.Field{
 				Type: graphql.NewList(LocationType),
@@ -52,7 +52,7 @@ var worldType = graphql.NewObject(
 )
 
 var WorldField = &graphql.Field{
-	Type: worldType,
+	Type: WorldType,
 	Args: graphql.FieldConfigArgument{
 		"name": &graphql.ArgumentConfig{
 			Type: graphql.String,

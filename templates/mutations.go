@@ -30,13 +30,16 @@ func getValues(object interface{}) []int {
 }
 
 var GenerateEventsField = &graphql.Field{
-	Type: graphql.NewList(models.EventType),
+	Type: models.WorldType,
 	Args: graphql.FieldConfigArgument{
 		"world": &graphql.ArgumentConfig{
 			Type: graphql.String,
 		},
 		"knowledge": &graphql.ArgumentConfig{
 			Type: player.KnowledgeInputType,
+		},
+		"location": &graphql.ArgumentConfig{
+			Type: graphql.Int,
 		},
 	},
 	Resolve: func(params graphql.ResolveParams) (interface{}, error) {
@@ -58,6 +61,13 @@ var GenerateEventsField = &graphql.Field{
 			}
 		}
 
+		playerLocation, ok := params.Args["location"].(int)
+
+		if ok {
+			world.State.Player.Location = playerLocation
+			fmt.Println(world.State.Player.Location)
+		}
+
 		eventTemplates := GetEventTemplates(world)
 		world.LatestEvents = eventTemplates
 		generator.Compute(&world)
@@ -77,6 +87,6 @@ var GenerateEventsField = &graphql.Field{
 			fmt.Println(err)
 		}
 
-		return eventTemplates, nil
+		return world, nil
 	},
 }

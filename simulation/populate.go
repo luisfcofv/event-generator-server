@@ -81,11 +81,11 @@ func createGoals() []models.Goal {
 }
 
 func createLocations() []models.Location {
-	location1 := models.Location{1, "Castle", "Description 1", nil}
-	location2 := models.Location{2, "Main Town", "Description 2", nil}
-	location3 := models.Location{3, "Small Town", "Description 3", nil}
-	location4 := models.Location{4, "Valley", "Description 4", nil}
-	location5 := models.Location{5, "Volcano", "Description 5", nil}
+	location1 := models.Location{1, "Viking Castle", "four broad round towers set firm and strong for a great defensive line", nil}
+	location2 := models.Location{2, "Ice City", "the capital in the north, home of elves", nil}
+	location3 := models.Location{3, "Fire Cave", "home of the mighty orcs, and dragons", nil}
+	location4 := models.Location{4, "Ghost Town", "quiet town was now partially reclaimed by nature. The creaking of wood is the only sound in this town now", nil}
+	location5 := models.Location{5, "Dragon Dungeon", "a grand dark cave in a foggy grove marks the entrance to this dungeon", nil}
 
 	location1.Connect(&location2, 2)
 	location2.Connect(&location4, 1)
@@ -103,11 +103,11 @@ func createLocations() []models.Location {
 }
 
 func createAgents() []models.Agent {
-	agent1 := models.Agent{1, "King", "The king", nil}
-	agent2 := models.Agent{2, "Witness", "Witness", nil}
-	agent3 := models.Agent{3, "Wizard", "Wizard", nil}
-	agent4 := models.Agent{4, "Queen", "The Queen", nil}
-	agent5 := models.Agent{5, "Traveler", "Traveler ", nil}
+	agent1 := models.Agent{1, "King", "a true hero among humans. People tend to ask him about his latest victory", nil}
+	agent2 := models.Agent{2, "Witness", "there's something misleading about him, perhaps it's his personality", nil}
+	agent3 := models.Agent{3, "Wizard", "a true master, a scar reaching from the top of the right cheek", nil}
+	agent4 := models.Agent{4, "Queen", "a true leader, she stands graciously among others", nil}
+	agent5 := models.Agent{5, "Traveler", " a true adventurer, he stands gracefully among others", nil}
 
 	agent1.Connect(&agent2)
 	agent2.Connect(&agent3)

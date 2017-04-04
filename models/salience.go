@@ -13,6 +13,10 @@ type Salience struct {
 	Total     float64 `json:"total"`
 }
 
+func (salience *Salience) ComputeTotal() {
+	salience.Total = (salience.Space + salience.Social + salience.Intention + salience.Causation + salience.Time) / 5
+}
+
 var SalienceType = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "Salience",

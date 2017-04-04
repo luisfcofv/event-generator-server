@@ -10,7 +10,7 @@ type PlayerState struct {
 
 var playerStateType = graphql.NewObject(
 	graphql.ObjectConfig{
-		Name: "Player",
+		Name: "PlayerState",
 		Fields: graphql.Fields{
 			"location": &graphql.Field{
 				Type: graphql.Int,
