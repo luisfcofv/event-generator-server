@@ -31,7 +31,7 @@ func Compute(world *models.World) {
 		spaceSalience := salience.SpaceSalience(world, event.Location)
 		world.LatestEvents[index].Salience.Space = spaceSalience
 
-		socialSalience := salience.SocialSalience(world, event.Agents)
+		socialSalience := salience.SocialSalience(world, event)
 		world.LatestEvents[index].Salience.Social = socialSalience
 
 		intentionSalience := salience.IntentionSalience(world, event.Goal)

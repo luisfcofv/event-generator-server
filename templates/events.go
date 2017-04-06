@@ -26,10 +26,15 @@ func getFirstTemplate(world models.World) models.Event {
 	goal := world.Goals[rand.Intn(len(world.Goals))]
 	causation := world.Goals[rand.Intn(len(world.Goals))]
 
+	protagonist := false
+	if rand.Intn(2) == 1 {
+		protagonist = true
+	}
+
 	event := models.Event{
 		Name:        "Template 1",
 		Description: "Random template",
-		Protagonist: false,
+		Protagonist: protagonist,
 		Agents:      []models.Agent{agent},
 		Location:    location,
 		Goal:        goal,

@@ -7,20 +7,18 @@ import (
 	"github.com/luisfcofv/indexter/models"
 )
 
-func SocialSalience(world *models.World, agents []models.Agent) float64 {
-	socialMap := make(map[int][]int)
+func SocialSalience(world *models.World, event models.Event) float64 {
+	if event.Protagonist {
+		return 1.0
+	}
 
+	socialMap := make(map[int][]int)
 	for _, agent := range world.Agents {
 		socialMap[agent.ID] = agent.Connections
 	}
 
 	distance := float64(len(world.Agents))
-	for _, agent := range agents {
-		if agent.ID == 0 {
-			// 0 is the protagonist
-			return 1.0
-		}
-
+	for _, agent := range event.Agents {
 		agentDistance := graph.BreadthFirstSearch(agent.ID, socialMap, world.Player.Knowledge.Social)
 		distance = math.Min(distance, float64(agentDistance))
 	}
