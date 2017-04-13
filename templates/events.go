@@ -38,7 +38,7 @@ func getFirstTemplate(world models.World) models.Event {
 		Agents:      []models.Agent{agent},
 		Location:    location,
 		Goal:        goal,
-		Time:        rand.Intn(20),
+		Propagation: rand.Intn(2) + 1,
 		Cause:       causation,
 	}
 
@@ -59,7 +59,7 @@ func getSecondTemplate(world models.World) models.Event {
 		Agents:      []models.Agent{world.Agents[possibleAgents[agentID]]},
 		Location:    world.Locations[3],
 		Goal:        world.Goals[1], // Find the treasure
-		Time:        rand.Intn(20),
+		Propagation: 1,
 		Cause:       world.Goals[2], // Collect coins
 	}
 
@@ -71,10 +71,10 @@ func getThirdTemplate(world models.World) models.Event {
 		Name:        "Template 3",
 		Description: "City 2, The king, Talk to the king",
 		Protagonist: false,
-		Agents:      []models.Agent{world.Agents[0]}, // The king
+		Agents:      []models.Agent{world.Agents[0], world.Agents[1]}, // The king
 		Location:    world.Locations[2],
 		Goal:        world.Goals[0], // Talk to the king
-		Time:        rand.Intn(15),
+		Propagation: 1,
 		Cause:       world.Goals[4], // Rescue the princess
 	}
 
@@ -89,7 +89,7 @@ func getFourthTemplate(world models.World) models.Event {
 		Agents:      []models.Agent{world.Agents[1]},
 		Location:    world.Locations[4],
 		Goal:        world.Goals[3], // Fight the dragon
-		Time:        14,
+		Propagation: 1,
 	}
 
 	return event
@@ -108,7 +108,7 @@ func getFifthTemplate(world models.World) models.Event {
 		Agents:      []models.Agent{world.Agents[2]}, // Wizard
 		Location:    world.Locations[possibleCities[cityID]],
 		Goal:        world.Goals[4], // Rescue the princess
-		Time:        rand.Intn(20),
+		Propagation: 2,
 		Cause:       world.Goals[3], // Fight the dragon
 	}
 

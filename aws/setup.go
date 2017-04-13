@@ -24,7 +24,7 @@ var DynamodbClient *dynamodb.DynamoDB
 var AppConfig Config
 
 func Setup() {
-	fmt.Println("Seting up AWS session...")
+	fmt.Println("Setting up AWS session...")
 	AppConfig = Config{"World", "eu-west-2", 0}
 
 	awscfg := &aws.Config{}
