@@ -32,8 +32,8 @@ func getFirstTemplate(world models.World) models.Event {
 	}
 
 	event := models.Event{
-		Name:        "Template 1",
-		Description: "Random template",
+		Name:        "Something is happening",
+		Description: "Nobody knows what is going on, be ready for an adventure",
 		Protagonist: protagonist,
 		Agents:      []models.Agent{agent},
 		Location:    location,
@@ -53,8 +53,8 @@ func getSecondTemplate(world models.World) models.Event {
 	agentID := rand.Intn(len(possibleAgents))
 
 	event := models.Event{
-		Name:        "Template 2",
-		Description: "City 3, Witness or The Queen, Find the treasure",
+		Name:        "The orcs are gathering",
+		Description: "This unusal situation means they are looking for something valuable",
 		Protagonist: false,
 		Agents:      []models.Agent{world.Agents[possibleAgents[agentID]]},
 		Location:    world.Locations[3],
@@ -68,8 +68,8 @@ func getSecondTemplate(world models.World) models.Event {
 
 func getThirdTemplate(world models.World) models.Event {
 	event := models.Event{
-		Name:        "Template 3",
-		Description: "City 2, The king, Talk to the king",
+		Name:        "The king has gathered important information",
+		Description: "This information can solve an imporantant mistery",
 		Protagonist: false,
 		Agents:      []models.Agent{world.Agents[0], world.Agents[1]}, // The king
 		Location:    world.Locations[2],
@@ -83,8 +83,8 @@ func getThirdTemplate(world models.World) models.Event {
 
 func getFourthTemplate(world models.World) models.Event {
 	event := models.Event{
-		Name:        "Template 4",
-		Description: "City 5, Protagonist, Fight the dragon",
+		Name:        "Kill the dragon",
+		Description: "The most feared creature in this world, this dragon has a broad, elongated body with a very long tail",
 		Protagonist: true,
 		Agents:      []models.Agent{world.Agents[1]},
 		Location:    world.Locations[4],
@@ -103,8 +103,8 @@ func getFifthTemplate(world models.World) models.Event {
 	cityID := rand.Intn(len(possibleCities))
 
 	event := models.Event{
-		Name:        "Template 5",
-		Description: "City 3 or 4, Wizard, Rescue the princess",
+		Name:        "The dragon has taken the princess",
+		Description: "The princess disappeared at midnight, some people saw the dragon close to the city last night",
 		Agents:      []models.Agent{world.Agents[2]}, // Wizard
 		Location:    world.Locations[possibleCities[cityID]],
 		Goal:        world.Goals[4], // Rescue the princess
